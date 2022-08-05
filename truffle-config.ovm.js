@@ -2,7 +2,7 @@
 // like the mnemomic below. Note: .env is ignored by git in this project to keep your private information safe
 require('dotenv').config();
 const ganacheMnemonic = process.env["GANACHE_MNEMONIC"];
-const goerliMnemonic = process.env["GOERLI_MNEMONIC"];
+const kovanMnemonic = process.env["KOVAN_MNEMONIC"];
 const mnemonic = 'test test test test test test test test test test test junk' // process.env["MNEMONIC"];
 
 const infuraKey = process.env["INFURA_KEY"];
@@ -18,7 +18,7 @@ module.exports = {
   /**
   * contracts_build_directory tells Truffle where to store compiled contracts
   */
-  contracts_build_directory: './build/optimism-contracts',
+  contracts_build_directory: './client/contracts/optimism-contracts',
 
   /**
   *  contracts_directory tells Truffle where to find your contracts
@@ -57,11 +57,11 @@ module.exports = {
         })
       }
     },
-    optimistic_goerli: {
-      network_id: 420,
-      chain_id: 420,
+    optimistic_kovan: {
+      network_id: 69,
+      chain_id: 69,
       provider: function () {
-        return new HDWalletProvider(goerliMnemonic, "https://optimism-goerli.infura.io/v3/" + infuraKey, 0, 1);
+        return new HDWalletProvider(kovanMnemonic, "https://optimism-kovan.infura.io/v3/" + infuraKey, 0, 1);
       }
     },
     // requires a mainnet mnemonic; you can save this in .env or in whatever secure location
@@ -74,10 +74,11 @@ module.exports = {
       }
     },
     dashboard: {
-      host: "127.0.0.1",
-      port: 24012,
-      network_id: "*"
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 24012,            // Standard Ethereum port (default: none)
+      network_id: "*",
     }
+
   },
 
   mocha: {

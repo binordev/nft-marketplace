@@ -21,15 +21,16 @@
 // create a file at the root of your project and name it .env -- there you can set process variables
 // like the mnemomic below. Note: .env is ignored by git in this project to keep your private information safe
 require('dotenv').config();
-const goerliMnemonic = process.env["GOERLI_MNEMONIC"];
+const kovanMnemonic = process.env["KOVAN_MNEMONIC"];
 const infuraKey = process.env["INFURA_KEY"];
+
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
   /**
   * contracts_build_directory tells Truffle where to store compiled contracts
   */
-  contracts_build_directory: './build/ethereum-contracts',
+  contracts_build_directory: './client/contracts/ethereum-contracts',
 
   /**
   * contracts_directory tells Truffle where to find your contracts
@@ -55,9 +56,8 @@ module.exports = {
     //
     development: {
       host: "127.0.0.1",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
+      port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
-      maxFeePerGas: 500000000 // The block's base fee per gas is greater than the default max fee per gas
     },
     local_ethereum: {
       network_id: 31337,
@@ -65,20 +65,19 @@ module.exports = {
       port: 9545,
       gasPrice: 0
     },
-    // UNCOMMENT TO USE GOERLI NETWORK
-    // Currently, VSCode Extension debugger fails with "truffle-config.js" has incorrect format
-    // due to the usage of HDWalletProvider
-    // goerli: {
-    //   network_id: 5,
-    //   chain_id: 5,
-    //   provider: function() {
-    //     return new HDWalletProvider(goerliMnemonic, "https://goerli.infura.io/v3/" + infuraKey, 0, 1);
-    //   }
-    // },
-    dashboard: {
-      host: "127.0.0.1",
-      port: 24012,
-      network_id: "*"
+    kovan: {
+      network_id: 42,
+      chain_id: 42,
+      provider: function() {
+        return new HDWalletProvider(kovanMnemonic, "https://kovan.infura.io/v3/"+ infuraKey, 0, 1);
+      }
+    },
+    rinkeby: {
+      network_id: 4,
+      chain_id: 4,
+      provider: function() {
+        return new HDWalletProvider(kovanMnemonic, "https://rinkeby.infura.io/v3/"+ infuraKey, 0, 1);
+      }
     }
   },
 
