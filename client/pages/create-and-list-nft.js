@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
-import Marketplace from '../contracts/optimism-contracts/Marketplace.json'
-import BoredPetsNFT from '../contracts/optimism-contracts/BoredPetsNFT.json'
-// import Marketplace from '../contracts/ethereum-contracts/Marketplace.json'
-// import BoredPetsNFT from '../contracts/ethereum-contracts/BoredPetsNFT.json'
+// import Marketplace from '../contracts/optimism-contracts/Marketplace.json'
+// import BoredPetsNFT from '../contracts/optimism-contracts/BoredPetsNFT.json'
+import Marketplace from '../contracts/ethereum-contracts/Marketplace.json'
+import BoredPetsNFT from '../contracts/ethereum-contracts/BoredPetsNFT.json'
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
