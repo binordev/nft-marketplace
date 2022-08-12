@@ -5,10 +5,13 @@ import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
 import { Marketplace, BoredPetsNFT } from './contracts-import'
 
+const ipfsServer = 'http://127.0.0.1' // Brave or CLI
 // const ipfsServer = 'https://ipfs.infura.io'
 const ipfsApiPort = '5001' // Infura or CLI
-const ipfsServer = 'http://127.0.0.1' // Brave or CLI
 // const ipfsApiPort = '45005' // Brave
+const ipfsGwPort = '8080' // CLI
+// const ipfsGwPort = '80' // Infura
+
 const client = ipfsHttpClient(`${ipfsServer}:${ipfsApiPort}/api/v0`)
 
 export default function CreateItem() {
@@ -26,7 +29,7 @@ export default function CreateItem() {
           progress: (prog) => console.log(`received: ${prog}`)
         }
       )
-      const url = `${ipfsServer}/ipfs/${added.path}`
+      const url = `${ipfsServer}:${ipfsGwPort}/ipfs/${added.path}`
       setFileUrl(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
@@ -44,7 +47,7 @@ export default function CreateItem() {
       })
       try {
         const added = await client.add(data)
-        const url = `${ipfsServer}/ipfs/${added.path}`
+        const url = `${ipfsServer}:${ipfsGwPort}/ipfs/${added.path}`
         // after metadata is uploaded to IPFS, return the URL to use it in the transaction
         return url
       } catch (error) {
